@@ -1,27 +1,20 @@
-const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
-const AUTH_ENDPOINT = import.meta.env.VITE_SPOTIFY_AUTH_ENDPOINT;
-const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private";
+import { getSpotifyAuthURL } from "./utils/spotifyAuth";
 
-const Login = () => {
+function App() {
   const handleLogin = () => {
-    const authUrl = `${AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(
-      REDIRECT_URI
-    )}&scope=${encodeURIComponent(SCOPES)}`;
-
-    window.location.href = authUrl; // Redirect to Spotify login
+    window.location.href = getSpotifyAuthURL();
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
       <button
         onClick={handleLogin}
-        className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-green-600 transition"
+        className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-lg transition"
       >
         Login with Spotify
       </button>
     </div>
   );
-};
+}
 
-export default Login;
+export default App;

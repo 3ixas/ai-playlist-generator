@@ -1,44 +1,27 @@
-export default function App() {
+const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+const AUTH_ENDPOINT = import.meta.env.VITE_SPOTIFY_AUTH_ENDPOINT;
+const SCOPES = "user-read-private user-read-email playlist-modify-public playlist-modify-private";
+
+const Login = () => {
+  const handleLogin = () => {
+    const authUrl = `${AUTH_ENDPOINT}?client_id=${SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(
+      REDIRECT_URI
+    )}&scope=${encodeURIComponent(SCOPES)}`;
+
+    window.location.href = authUrl; // Redirect to Spotify login
+  };
+
   return (
-    <div className="text-3xl font-bold underline text-center p-10">
-      Hello, Tailwind is working! 🎉
+    <div className="flex justify-center items-center min-h-screen">
+      <button
+        onClick={handleLogin}
+        className="bg-green-500 text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:bg-green-600 transition"
+      >
+        Login with Spotify
+      </button>
     </div>
   );
-}
+};
 
-
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// function App() {
-//   const [count, setCount] = useState(0)
-
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
-
-// export default App
+export default Login;

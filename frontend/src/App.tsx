@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     let accessToken = getStoredAccessToken(); // Check local storage first
 
-    if (!accesstoken) {
+    if (!accessToken) {
       accessToken = getAccessTokenFromURL(); // Get access token in URL if not in local storage
     }
 

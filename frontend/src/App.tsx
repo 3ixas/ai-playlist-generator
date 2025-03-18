@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { getSpotifyAuthURL } from "./utils/spotifyAuth";
-import { getAccessTokenFromURL } from "./utils/tokenHandler";
+import { getAccessTokenFromURL, getStoredAccessToken } from "./utils/tokenHandler";
 
 function App() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const accessToken = getAccessTokenFromURL();
+    let accessToken = getStoredAccessToken(); // Check local storage first
+
+    if (!accesstoken) {
+      accessToken = getAccessTokenFromURL(); // Get access token in URL if not in local storage
+    }
+
     if (accessToken) {
       setToken(accessToken);
       window.history.pushState({}, document.title, "/"); // Clean URL

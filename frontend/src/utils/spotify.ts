@@ -3,7 +3,7 @@ export const getUserProfile = async (accessToken: string) => {
         const response = await fetch("https://api.spotify.com/v1/me", {
             method: "GET",
             headers: {
-                Authorisation: `Bearer ${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
                 "Content-Type": "application/json",
             },
         });

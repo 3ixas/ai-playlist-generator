@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [token, setToken] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const accessToken = getStoredAccessToken();
-        if (accessToken) setToken(accessToken);
-    }, []);
+        if (accessToken) {
+            setToken(accessToken);
+        } else {
+            console.log("No valid token found, redirecting to login...");
+            navigate("/callback"); // Redirect to auth flow if no token
+        }
+    }, [navigate]);
 
     const handleLogin = () => {
         window.location.href = getSpotifyAuthURL();

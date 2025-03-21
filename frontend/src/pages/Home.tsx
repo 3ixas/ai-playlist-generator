@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
 import { useNavigate } from "react-router-dom";
-import { getUserProfile } from "../utils/spotify";
+import { getUserLikedTracks ,getUserProfile } from "../utils/spotify";
 
 const Home = () => {
     const [token, setToken] = useState<string | null>(null);
     const [profile, setProfile] = useState<any>(null);
+    const [likedTracks, setLikedTracks] = useState<any[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,9 +15,17 @@ const Home = () => {
 
         if (accessToken) {
             setToken(accessToken);
+        
             getUserProfile(accessToken).then((data) => {
                 if (data) {
                     setProfile(data);
+
+                    getUserLikedTracks(accessToken).then((tracks) => {
+                        if (tracks) {
+                            setLikedTracks(tracks);
+                            console.log("🎵 Liked Tracks:", tracks)
+                        }
+                    });
                 }
             });
         } else {
@@ -36,6 +45,19 @@ const Home = () => {
                     <>
                         <h1 className="text-2xl font-bold">Welcome, {profile.display_name} 👋</h1>
                         <p>Email: {profile.email}</p>
+
+                        {likedTracks.length > 0 && (
+                            <div className="mt-6 w-full max-w-md">
+                                <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
+                                <ul className="space-y-1 text-sm">
+                                    {likedTracks.slice(0, 5).map((track: any) => (
+                                        <li key={track.id}>
+                                            🎶 {track.name} — {track.artists.map((a: any) => a.name).join(", ")}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </>
                 ) : (
                     <p>Loading profile...</p>

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
-import { useNavigate } from "react-router-dom";
 import {
-  getUserLikedTracks,
   getUserProfile,
+  getUserLikedTracks,
   getUserPlaylists,
+  getUserTopArtists,
 } from "../utils/spotify";
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
   const [profile, setProfile] = useState<any>(null);
   const [likedTracks, setLikedTracks] = useState<any[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
+  const [topArtists, setTopArtists] = useState<any[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,20 +27,25 @@ const Home = () => {
         if (data) {
           setProfile(data);
 
-          // Fetch liked tracks
           getUserLikedTracks(accessToken).then((tracksResponse) => {
             if (tracksResponse?.items) {
               setLikedTracks(tracksResponse.items);
               console.log("🎵 Liked Tracks:", tracksResponse.items);
             }
+          });
 
-            // Then fetch playlists
-            getUserPlaylists(accessToken).then((playlistData) => {
-              if (playlistData?.items) {
-                setPlaylists(playlistData.items);
-                console.log("📁 User Playlists:", playlistData.items);
-              }
-            });
+          getUserPlaylists(accessToken).then((playlistsResponse) => {
+            if (playlistsResponse?.items) {
+              setPlaylists(playlistsResponse.items);
+              console.log("📁 User Playlists:", playlistsResponse.items);
+            }
+          });
+
+          getUserTopArtists(accessToken).then((topArtistsData) => {
+            if (topArtistsData?.items) {
+              setTopArtists(topArtistsData.items);
+              console.log("🎨 Top Artists:", topArtistsData.items);
+            }
           });
         }
       });
@@ -53,7 +60,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
       {token ? (
         profile ? (
           <>
@@ -64,7 +71,7 @@ const Home = () => {
               <div className="mt-6 w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
                 <ul className="space-y-1 text-sm">
-                  {likedTracks.slice(0, 5).map((item: any) => (
+                  {likedTracks.slice(0, 5).map((item) => (
                     <li key={item.track.id}>
                       🎶 {item.track.name} —{" "}
                       {item.track.artists.map((a: any) => a.name).join(", ")}
@@ -79,8 +86,19 @@ const Home = () => {
                 <h2 className="text-xl font-semibold mb-2">Your Playlists</h2>
                 <ul className="space-y-1 text-sm">
                   {playlists.slice(0, 5).map((playlist) => (
-                    <li key={playlist.id}>
-                      📁 {playlist.name} ({playlist.tracks.total} tracks)
+                    <li key={playlist.id}>📂 {playlist.name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {topArtists.length > 0 && (
+              <div className="mt-6 w-full max-w-md">
+                <h2 className="text-xl font-semibold mb-2">Your Top Artists</h2>
+                <ul className="space-y-1 text-sm">
+                  {topArtists.slice(0, 5).map((artist) => (
+                    <li key={artist.id}>
+                      🎤 {artist.name} ({artist.genres.slice(0, 2).join(", ")})
                     </li>
                   ))}
                 </ul>

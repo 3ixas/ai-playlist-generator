@@ -64,3 +64,32 @@ export const getUserPlaylists = async (accessToken: string) => {
     return null;
   }
 };
+
+export const getUserTopArtists = async (
+  accessToken: string,
+  limit = 10,
+  time_range: "short_term" | "medium_term" | "long_term" = "short_term"
+) => {
+  try {
+    const response = await fetch(
+      `https://api.spotify.com/v1/me/top/artists?limit=${limit}&time_range=${time_range}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Spotify API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("🎨 Top Artists:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching top artists:", error);
+    return null;
+  }
+};

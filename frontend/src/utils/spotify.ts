@@ -67,12 +67,12 @@ export const getUserPlaylists = async (accessToken: string) => {
 
 export const getUserTopArtists = async (
   accessToken: string,
-  limit = 10,
-  time_range: "short_term" | "medium_term" | "long_term" = "short_term"
+  timeRange: "short_term" | "medium_term" | "long_term",
+  limit = 10
 ) => {
   try {
     const response = await fetch(
-      `https://api.spotify.com/v1/me/top/artists?limit=${limit}&time_range=${time_range}`,
+      `https://api.spotify.com/v1/me/top/artists?limit=${limit}&time_range=${timeRange}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

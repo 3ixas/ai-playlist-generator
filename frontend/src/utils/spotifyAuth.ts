@@ -7,6 +7,7 @@ const SCOPES = [
   "playlist-modify-public",
   "playlist-modify-private",
   "user-library-read", // Allows access to liked tracks
+  "user-top-read", // Allows access to top artists
 ];
 
 export const getSpotifyAuthURL = (): string => {

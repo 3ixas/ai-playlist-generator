@@ -15,6 +15,8 @@ const Home = () => {
   const [likedTracks, setLikedTracks] = useState<any[]>([]);
   const [playlists, setPlaylists] = useState<any[]>([]);
   const [topArtists, setTopArtists] = useState<any[]>([]);
+  const [timeRange, setTimeRange] = useState<"short_term" | "medium_term" | "long_term">("short_term");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const Home = () => {
             }
           });
 
-          getUserTopArtists(accessToken).then((topArtistsData) => {
+          getUserTopArtists(accessToken, timeRange).then((topArtistsData) => {
             if (topArtistsData?.items) {
               setTopArtists(topArtistsData.items);
               console.log("🎨 Top Artists:", topArtistsData.items);
@@ -53,10 +55,14 @@ const Home = () => {
       console.log("No valid token found, redirecting to login...");
       navigate("/callback");
     }
-  }, [navigate]);
+  }, [navigate, timeRange]);
 
   const handleLogin = () => {
     window.location.href = getSpotifyAuthURL();
+  };
+
+  const handleTimeRangeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTimeRange(e.target.value as "short_term" | "medium_term" | "long_term");
   };
 
   return (
@@ -64,8 +70,37 @@ const Home = () => {
       {token ? (
         profile ? (
           <>
-            <h1 className="text-2xl font-bold">Welcome, {profile.display_name} 👋</h1>
-            <p>Email: {profile.email}</p>
+            <h1 className="text-2xl font-bold mb-1">Welcome, {profile.display_name} 👋</h1>
+            <p className="mb-6">Email: {profile.email}</p>
+
+            <div className="mb-6">
+              <label htmlFor="timeRange" className="block mb-2 font-semibold">
+                Select Time Range for Top Artists:
+              </label>
+              <select
+                id="timeRange"
+                value={timeRange}
+                onChange={handleTimeRangeChange}
+                className="text-black p-2 rounded"
+              >
+                <option value="short_term">Last 4 Weeks</option>
+                <option value="medium_term">Last 6 Months</option>
+                <option value="long_term">All Time</option>
+              </select>
+            </div>
+
+            {topArtists.length > 0 && (
+              <div className="mt-6 w-full max-w-md">
+                <h2 className="text-xl font-semibold mb-2">Top Artists ({timeRange.replace("_", " ")})</h2>
+                <ul className="space-y-1 text-sm">
+                  {topArtists.slice(0, 5).map((artist) => (
+                    <li key={artist.id}>
+                      🎤 {artist.name} ({artist.genres.slice(0, 2).join(", ")})
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {likedTracks.length > 0 && (
               <div className="mt-6 w-full max-w-md">
@@ -87,19 +122,6 @@ const Home = () => {
                 <ul className="space-y-1 text-sm">
                   {playlists.slice(0, 5).map((playlist) => (
                     <li key={playlist.id}>📂 {playlist.name}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {topArtists.length > 0 && (
-              <div className="mt-6 w-full max-w-md">
-                <h2 className="text-xl font-semibold mb-2">Your Top Artists</h2>
-                <ul className="space-y-1 text-sm">
-                  {topArtists.slice(0, 5).map((artist) => (
-                    <li key={artist.id}>
-                      🎤 {artist.name} ({artist.genres.slice(0, 2).join(", ")})
-                    </li>
                   ))}
                 </ul>
               </div>

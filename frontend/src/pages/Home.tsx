@@ -22,40 +22,38 @@ const Home = () => {
   useEffect(() => {
     const accessToken = getStoredAccessToken();
 
-    if (accessToken) {
-      setToken(accessToken);
-
-      getUserProfile(accessToken).then((data) => {
-        if (data) {
-          setProfile(data);
-
-          getUserLikedTracks(accessToken).then((tracksResponse) => {
-            if (tracksResponse?.items) {
-              setLikedTracks(tracksResponse.items);
-              console.log("🎵 Liked Tracks:", tracksResponse.items);
-            }
-          });
-
-          getUserPlaylists(accessToken).then((playlistsResponse) => {
-            if (playlistsResponse?.items) {
-              setPlaylists(playlistsResponse.items);
-              console.log("📁 User Playlists:", playlistsResponse.items);
-            }
-          });
-
-          getUserTopArtists(accessToken, timeRange).then((topArtistsData) => {
-            if (topArtistsData?.items) {
-              setTopArtists(topArtistsData.items);
-              console.log("🎨 Top Artists:", topArtistsData.items);
-            }
-          });
-        }
-      });
-    } else {
+    if (!accessToken) {
       console.log("No valid token found, redirecting to login...");
       navigate("/callback");
+      return;
     }
-  }, [navigate, timeRange]);
+
+    setToken(accessToken);
+
+    getUserProfile(accessToken).then((data) => {
+      if (data) setProfile(data);
+    });
+
+    getUserLikedTracks(accessToken).then((res) => {
+      if (res?.items) setLikedTracks(res.items);
+    });
+
+    getUserPlaylists(accessToken).then((res) => {
+      if (res?.items) setPlaylists(res.items);
+    });
+  }, [navigate]);
+
+  // Fetch top artists when time range or token changes
+  useEffect(() => {
+  if (!token) return;
+
+  getUserTopArtists(token, { timeRange, limit: 10 }).then((res) => {
+    if (res?.items) {
+      setTopArtists(res.items);
+      console.log("🎨 Top Artists:", res.items);
+    }
+  });
+}, [token, timeRange]);
 
   const handleLogin = () => {
     window.location.href = getSpotifyAuthURL();
@@ -81,7 +79,7 @@ const Home = () => {
                 id="timeRange"
                 value={timeRange}
                 onChange={handleTimeRangeChange}
-                className="text-black p-2 rounded"
+                className="text-white bg-gray-800 border border-gray-600 p-2 rounded"
               >
                 <option value="short_term">Last 4 Weeks</option>
                 <option value="medium_term">Last 6 Months</option>
@@ -95,7 +93,10 @@ const Home = () => {
                 <ul className="space-y-1 text-sm">
                   {topArtists.slice(0, 5).map((artist) => (
                     <li key={artist.id}>
-                      🎤 {artist.name} ({artist.genres.slice(0, 2).join(", ")})
+                      🎤 {artist.name}{" "}
+                      {artist.genres.length > 0 && (
+                        <span className="text-gray-400">({artist.genres.slice(0, 2).join(", ")})</span>
+                      )}
                     </li>
                   ))}
                 </ul>

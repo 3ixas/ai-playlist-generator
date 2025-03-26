@@ -65,11 +65,17 @@ export const getUserPlaylists = async (accessToken: string) => {
   }
 };
 
+type TopArtistsOptions = {
+  timeRange?: "short_term" | "medium_term" | "long_term";
+  limit?: number;
+};
+
 export const getUserTopArtists = async (
   accessToken: string,
-  timeRange: "short_term" | "medium_term" | "long_term",
-  limit = 10
+  options: TopArtistsOptions = {}
 ) => {
+  const { timeRange = "short_term", limit = 10 } = options;
+
   try {
     const response = await fetch(
       `https://api.spotify.com/v1/me/top/artists?limit=${limit}&time_range=${timeRange}`,

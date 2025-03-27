@@ -103,7 +103,9 @@ const Home = () => {
             </div>
 
             {isLoadingTopArtists ? (
-                <ClipLoader color="#36d7b7" size={30} />
+                <div className="mt-6 w-full max-w-md flex justify-center">
+                    <ClipLoader color="#36d7b7" size={30} />
+                </div>
             ) : topArtists.length > 0 && (
             <div className="mt-6 w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-2">Top Artists ({timeRange.replace("_", " ")})</h2>

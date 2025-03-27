@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
+import { ClipLoader } from "react-spinners";
 import {
   getUserProfile,
   getUserLikedTracks,

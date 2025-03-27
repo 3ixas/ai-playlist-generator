@@ -104,6 +104,7 @@ const Home = () => {
 
             {isLoadingTopArtists ? (
                 <div className="mt-6 w-full max-w-md flex justify-center">
+                    <h2 className="text-xl font-semibold mb-2">Your Top Artists</h2>
                     <ClipLoader color="#36d7b7" size={30} />
                 </div>
             ) : topArtists.length > 0 && (

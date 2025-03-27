@@ -64,6 +64,7 @@ const Home = () => {
         setTopArtists(res.items);
         console.log("🎨 Top Artists:", res.items);
       }
+      setIsLoadingTopArtists(false);
     });
   }, [token, timeRange]);
 

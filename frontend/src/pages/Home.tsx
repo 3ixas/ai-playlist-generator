@@ -17,6 +17,11 @@ const Home = () => {
   const [playlists, setPlaylists] = useState<any[]>([]);
   const [topArtists, setTopArtists] = useState<any[]>([]);
   const [timeRange, setTimeRange] = useState<"short_term" | "medium_term" | "long_term">("short_term");
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true);
+  const [isLoadingLikedTracks, setIsLoadingLikedTracks] = useState(true);
+  const [isLoadingPlaylists, setIsLoadingPlaylists] = useState(true);
+  const [isLoadingTopArtists, setIsLoadingTopArtists] = useState(true);
+
 
   const navigate = useNavigate();
 

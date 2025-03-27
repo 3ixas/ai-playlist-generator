@@ -36,8 +36,10 @@ const Home = () => {
 
     setToken(accessToken);
 
+    setIsLoadingProfile(true);
     getUserProfile(accessToken).then((data) => {
-      if (data) setProfile(data);
+        if (data) setProfile(data);
+        setIsLoadingProfile(false);
     });
 
     getUserLikedTracks(accessToken).then((res) => {

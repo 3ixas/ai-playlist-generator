@@ -42,8 +42,10 @@ const Home = () => {
         setIsLoadingProfile(false);
     });
 
+    setIsLoadingLikedTracks(true);
     getUserLikedTracks(accessToken).then((res) => {
-      if (res?.length) setLikedTracks(res);
+        if (res?.items) setLikedTracks(res.items);
+        setIsLoadingLikedTracks(false);
     });
 
     getUserPlaylists(accessToken).then((res) => {

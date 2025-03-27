@@ -109,7 +109,7 @@ const Home = () => {
                 </div>
             ) : topArtists.length > 0 && (
             <div className="mt-6 w-full max-w-md">
-                <h2 className="text-xl font-semibold mb-2">Top Artists ({timeRange.replace("_", " ")})</h2>
+                <h2 className="text-xl font-semibold mb-2">Your Top Artists ({timeRange.replace("_", " ")})</h2>
                 <ul className="space-y-1 text-sm">
                     {topArtists.slice(0, 5).map((artist) => (
                         <li key={artist.id}>
@@ -127,6 +127,7 @@ const Home = () => {
 
             {isLoadingLikedTracks ? (
                 <div className="mt-6 w-full max-w-md flex justify-center">
+                    <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
                     <ClipLoader color="#36d7b7" size={30} />
                 </div>
             ) : likedTracks.length > 0 && (

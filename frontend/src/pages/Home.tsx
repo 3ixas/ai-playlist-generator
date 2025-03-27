@@ -143,7 +143,9 @@ const Home = () => {
             )}
 
             {isLoadingPlaylists ? (
-                <ClipLoader color="#36d7b7" size={30} />
+                <div className="mt-6 w-full max-w-md flex justify-center">
+                    <ClipLoader color="#36d7b7" size={30} />
+                </div>
             ) : playlists.length > 0 && (
             <div className="mt-6 w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-2">Your Playlists</h2>

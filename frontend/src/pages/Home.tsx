@@ -99,20 +99,24 @@ const Home = () => {
               </select>
             </div>
 
-            {topArtists.length > 0 && (
-              <div className="mt-6 w-full max-w-md">
+            {isLoadingTopArtists ? (
+                <ClipLoader color="#36d7b7" size={30} />
+            ) : topArtists.length > 0 && (
+            <div className="mt-6 w-full max-w-md">
                 <h2 className="text-xl font-semibold mb-2">Top Artists ({timeRange.replace("_", " ")})</h2>
                 <ul className="space-y-1 text-sm">
-                  {topArtists.slice(0, 5).map((artist) => (
-                    <li key={artist.id}>
-                      🎤 {artist.name}{" "}
-                      {artist.genres.length > 0 && (
-                        <span className="text-gray-400">({artist.genres.slice(0, 2).join(", ")})</span>
-                      )}
-                    </li>
-                  ))}
+                    {topArtists.slice(0, 5).map((artist) => (
+                        <li key={artist.id}>
+                            🎤 {artist.name}{" "}
+                            {artist.genres.length > 0 && (
+                                <span className="text-gray-400">
+                                    ({artist.genres.slice(0, 2).join(", ")})
+                                </span>
+                            )}
+                        </li>
+                    ))}
                 </ul>
-              </div>
+            </div>
             )}
 
             {likedTracks.length > 0 && (

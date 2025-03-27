@@ -48,8 +48,10 @@ const Home = () => {
         setIsLoadingLikedTracks(false);
     });
 
+    setIsLoadingPlaylists(true);
     getUserPlaylists(accessToken).then((res) => {
-      if (res?.length) setPlaylists(res);
+        if (res?.items) setPlaylists(res.items);
+        setIsLoadingPlaylists(false);
     });
   }, [navigate]);
 

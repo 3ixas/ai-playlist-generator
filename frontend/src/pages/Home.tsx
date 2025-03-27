@@ -58,6 +58,7 @@ const Home = () => {
   useEffect(() => {
     if (!token) return;
 
+    setIsLoadingTopArtists(true);
     getUserTopArtists(token, { timeRange, limit: 10 }).then((res) => {
       if (res?.items) {
         setTopArtists(res.items);
@@ -140,7 +141,7 @@ const Home = () => {
             )}
           </>
         ) : (
-          <p>Loading profile...</p>
+          <ClipLoader color="#36d7b7" size={35} />
         )
       ) : (
         <button

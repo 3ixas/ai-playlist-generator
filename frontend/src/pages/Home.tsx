@@ -35,25 +35,24 @@ const Home = () => {
     });
 
     getUserLikedTracks(accessToken).then((res) => {
-      if (res?.items) setLikedTracks(res.items);
+      if (res?.length) setLikedTracks(res);
     });
 
     getUserPlaylists(accessToken).then((res) => {
-      if (res?.items) setPlaylists(res.items);
+      if (res?.length) setPlaylists(res);
     });
   }, [navigate]);
 
-  // Fetch top artists when time range or token changes
   useEffect(() => {
-  if (!token) return;
+    if (!token) return;
 
-  getUserTopArtists(token, { timeRange, limit: 10 }).then((res) => {
-    if (res?.items) {
-      setTopArtists(res.items);
-      console.log("🎨 Top Artists:", res.items);
-    }
-  });
-}, [token, timeRange]);
+    getUserTopArtists(token, { timeRange, limit: 10 }).then((res) => {
+      if (res?.items) {
+        setTopArtists(res.items);
+        console.log("🎨 Top Artists:", res.items);
+      }
+    });
+  }, [token, timeRange]);
 
   const handleLogin = () => {
     window.location.href = getSpotifyAuthURL();

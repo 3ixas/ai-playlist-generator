@@ -78,7 +78,7 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
       {token ? (
-        profile ? (
+        isLoadingProfile ? (
           <>
             <h1 className="text-2xl font-bold mb-1">Welcome, {profile.display_name} 👋</h1>
             <p className="mb-6">Email: {profile.email}</p>

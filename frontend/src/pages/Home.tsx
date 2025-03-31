@@ -112,7 +112,11 @@ const Home = () => {
                 className="fixed top-4 right-4 z-50 px-3 py-2 rounded-full bg-white text-gray-800 dark:bg-gray-800 dark:text-white shadow-md transition-all hover:scale-105"
                 aria-label="Toggle dark mode"
             >
-                {isDarkMode ? "☀️" : "🌙"}
+                {isDarkMode ? (
+                    <span className="transition-transform duration-300 rotate-0">☀️</span>
+                ) : (
+                    <span className="transition-transform duration-300 rotate-180">🌙</span>
+                )}
             </button>
         {token ? (
             isLoadingProfile ? (

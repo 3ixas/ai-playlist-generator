@@ -129,8 +129,8 @@ const Home = () => {
                             className="w-24 h-24 rounded-full border-2 border-green-400 shadow-md mb-3"
                         />
                     )}
-                    <h1 className="text-2xl font-bold">Welcome, {profile.display_name} 👋</h1>
-                    <p className="text-sm italic text-gray-500 dark:text-gray-400">{profile.email}</p>
+                    <h1 className="text-2xl font-bold transition-colors duration-300">Welcome, {profile.display_name} 👋</h1>
+                    <p className="text-sm italic text-gray-500 dark:text-gray-400 transition-colors duration-300">{profile.email}</p>
                 </div>
 
                 <div className="mb-6">
@@ -155,11 +155,11 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
+                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
                             Your Top Artists ({timeRange.replace("_", " ")})
                         </h2>
                         {topArtists.length > 0 ? (
-                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
+                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100 transition-colors duration-300">
                                 {topArtists.slice(0, 5).map((artist) => (
                                     <li key={artist.id}>
                                         🎤 {artist.name}{" "}
@@ -183,11 +183,11 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
+                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
                             Your Liked Tracks
                         </h2>
                         {likedTracks.length > 0 ? (
-                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
+                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100 transition-colors duration-300">
                                 {likedTracks.slice(0, 5).map((item) => (
                                     <li key={item.track.id}>
                                         🎶 {item.track.name} —{" "}
@@ -207,11 +207,11 @@ const Home = () => {
                     </div>
                 ) : (
                     <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
+                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
                             Your Playlists
                         </h2>
                         {playlists.length > 0 ? (
-                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
+                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100 transition-colors duration-300">
                                 {playlists.slice(0, 5).map((playlist) => (
                                     <li key={playlist.id}>📂 {playlist.name}</li>
                                 ))}

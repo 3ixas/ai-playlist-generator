@@ -119,7 +119,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="mt-6 w-full max-w-md">
-                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-700 pb-1">
+                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
                         Your Top Artists ({timeRange.replace("_", " ")})
                     </h2>
                     {topArtists.length > 0 ? (
@@ -147,7 +147,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="mt-6 w-full max-w-md">
-                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-700 pb-1">
+                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
                         Your Liked Tracks
                     </h2>
                     {likedTracks.length > 0 ? (
@@ -171,7 +171,7 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="mt-6 w-full max-w-md">
-                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-700 pb-1">
+                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
                         Your Playlists
                     </h2>
                     {playlists.length > 0 ? (

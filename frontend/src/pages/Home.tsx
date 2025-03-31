@@ -80,7 +80,9 @@ const Home = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
       {token ? (
         isLoadingProfile ? (
-            <ClipLoader color="#36d7b7" size={35} />
+            <div className="mt-6 w-full max-w-md flex justify-center">
+                <ClipLoader color="#36d7b7" size={35} />
+            </div>
         ) : profile ? (
           <>
             <h1 className="text-2xl font-bold mb-1">Welcome, {profile.display_name} 👋</h1>

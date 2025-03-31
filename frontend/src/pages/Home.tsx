@@ -105,7 +105,7 @@ const Home = () => {
                     id="timeRange"
                     value={timeRange}
                     onChange={handleTimeRangeChange}
-                    className="text-white bg-gray-800 border border-gray-600 p-2 rounded"
+                    className="bg-white text-gray-900 border border-gray-400 dark:bg-gray-800 dark:text-white dark:border-gray-600 p-2 rounded transition-colors duration-300"
                 >
                     <option value="short_term">Last 4 Weeks</option>
                     <option value="medium_term">Last 6 Months</option>

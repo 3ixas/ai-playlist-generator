@@ -1,5 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
+// Root variables & global styles
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -15,6 +17,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// Base element styles
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,14 +26,6 @@ a {
 a:hover {
   color: #535bf2;
 }
-
-/* body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-} */
 
 h1 {
   font-size: 3.2em;
@@ -56,6 +51,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+// Light-mode media fallback
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

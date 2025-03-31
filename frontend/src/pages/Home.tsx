@@ -98,7 +98,7 @@ const Home = () => {
             </div>
 
             <div className="mb-6">
-                <label htmlFor="timeRange" className="block mb-2 font-semibold">
+                <label htmlFor="timeRange" className="block mb-2 font-semibold text-gray-800 dark:text-gray-200">
                     Select Time Range for Top Artists:
                 </label>
                 <select

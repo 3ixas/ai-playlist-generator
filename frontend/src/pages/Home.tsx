@@ -94,7 +94,7 @@ const Home = () => {
                     />
                 )}
                 <h1 className="text-2xl font-bold">Welcome, {profile.display_name} 👋</h1>
-                <p className="text-sm text-gray-400">{profile.email}</p>
+                <p className="text-sm italic text-gray-500 dark:text-gray-400">{profile.email}</p>
             </div>
 
             <div className="mb-6">
@@ -136,7 +136,7 @@ const Home = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-gray-400 italic">No top artists found.</p>
+                        <p className="text-sm italic text-gray-500 dark:text-gray-400">No top artists found.</p>
                     )}
                 </div>
             )}
@@ -160,7 +160,7 @@ const Home = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-gray-400 italic">No liked tracks found.</p>
+                        <p className="text-sm italic text-gray-500 dark:text-gray-400">No liked tracks found.</p>
                     )}
                 </div>
             )}
@@ -181,7 +181,7 @@ const Home = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-gray-400 italic">No playlists found.</p>
+                        <p className="text-sm italic text-gray-500 dark:text-gray-400">No playlists found.</p>
                     )}
                 </div>
             )}

@@ -21,9 +21,20 @@ const Home = () => {
     const [isLoadingLikedTracks, setIsLoadingLikedTracks] = useState(true);
     const [isLoadingPlaylists, setIsLoadingPlaylists] = useState(true);
     const [isLoadingTopArtists, setIsLoadingTopArtists] = useState(true);
-    const [isDarkMode, setIsDarkMode] = useState(() => {
-    return document.documentElement.classList.contains("dark");
-    });
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    
+    useEffect(() => {
+        const savedTheme = localStorage.getItem("theme");
+        
+        if (savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+            document.documentElement.classList.add("dark");
+            setIsDarkMode(true);
+        } else {
+            document.documentElement.classList.remove("dark");
+            setIsDarkMode(false);
+        }
+    }, []);
+
     
     const toggleDarkMode = () => {
         const html = document.documentElement;

@@ -123,7 +123,7 @@ const Home = () => {
                         Your Top Artists ({timeRange.replace("_", " ")})
                     </h2>
                     {topArtists.length > 0 ? (
-                        <ul className="space-y-1 text-sm">
+                        <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
                             {topArtists.slice(0, 5).map((artist) => (
                                 <li key={artist.id}>
                                     🎤 {artist.name}{" "}
@@ -151,7 +151,7 @@ const Home = () => {
                         Your Liked Tracks
                     </h2>
                     {likedTracks.length > 0 ? (
-                        <ul className="space-y-1 text-sm">
+                        <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
                             {likedTracks.slice(0, 5).map((item) => (
                                 <li key={item.track.id}>
                                     🎶 {item.track.name} —{" "}
@@ -175,7 +175,7 @@ const Home = () => {
                         Your Playlists
                     </h2>
                     {playlists.length > 0 ? (
-                        <ul className="space-y-1 text-sm">
+                        <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
                             {playlists.slice(0, 5).map((playlist) => (
                                 <li key={playlist.id}>📂 {playlist.name}</li>
                             ))}

@@ -162,7 +162,9 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="mt-6 w-full max-w-md">
-                    <h2 className="text-xl font-semibold mb-2">Your Playlists</h2>
+                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-700 pb-1">
+                        Your Playlists
+                    </h2>
                     {playlists.length > 0 ? (
                         <ul className="space-y-1 text-sm">
                             {playlists.slice(0, 5).map((playlist) => (
@@ -170,7 +172,7 @@ const Home = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-gray-400">No playlists found.</p>
+                        <p className="text-sm text-gray-400 italic">No playlists found.</p>
                     )}
                 </div>
             )}

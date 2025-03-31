@@ -138,7 +138,9 @@ const Home = () => {
                 </div>
             ) : (
                 <div className="mt-6 w-full max-w-md">
-                    <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
+                    <h2 className="text-xl font-semibold mb-2 border-b border-gray-700 pb-1">
+                        Your Liked Tracks
+                    </h2>
                     {likedTracks.length > 0 ? (
                         <ul className="space-y-1 text-sm">
                             {likedTracks.slice(0, 5).map((item) => (
@@ -149,7 +151,7 @@ const Home = () => {
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-sm text-gray-400">No liked tracks found.</p>
+                        <p className="text-sm text-gray-400 italic">No liked tracks found.</p>
                     )}
                 </div>
             )}

@@ -27,9 +27,19 @@ const Home = () => {
     
     const toggleDarkMode = () => {
         const html = document.documentElement;
-        html.classList.toggle("dark");
-        setIsDarkMode(html.classList.contains("dark"));
+        const isCurrentlyDark = html.classList.contains("dark");
+        
+        if (isCurrentlyDark) {
+            html.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+            setIsDarkMode(false);
+        } else {
+            html.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+            setIsDarkMode(true);
+        }
     };
+
 
     const navigate = useNavigate();
 

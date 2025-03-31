@@ -126,21 +126,20 @@ const Home = () => {
 
             {isLoadingLikedTracks ? (
                 <div className="mt-6 w-full max-w-md flex justify-center">
-                    <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
                     <ClipLoader color="#36d7b7" size={30} />
                 </div>
             ) : likedTracks.length > 0 && (
-            <div className="mt-6 w-full max-w-md">
-                <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
-                <ul className="space-y-1 text-sm">
-                    {likedTracks.slice(0, 5).map((item) => (
-                        <li key={item.track.id}>
-                            🎶 {item.track.name} —{" "}
-                            {item.track.artists.map((a: any) => a.name).join(", ")}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                <div className="mt-6 w-full max-w-md">
+                    <h2 className="text-xl font-semibold mb-2">Your Liked Tracks</h2>
+                    <ul className="space-y-1 text-sm">
+                        {likedTracks.slice(0, 5).map((item) => (
+                            <li key={item.track.id}>
+                                🎶 {item.track.name} —{" "}
+                                {item.track.artists.map((a: any) => a.name).join(", ")}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
 
             {isLoadingPlaylists ? (

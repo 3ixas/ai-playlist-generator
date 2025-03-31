@@ -77,7 +77,7 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-6 transition-colors duration-300">
       {token ? (
         isLoadingProfile ? (
             <div className="mt-6 w-full max-w-md flex justify-center">

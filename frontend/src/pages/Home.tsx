@@ -84,6 +84,14 @@ const Home = () => {
         setTimeRange(e.target.value as "short_term" | "medium_term" | "long_term");
     };
 
+    <button
+        onClick={toggleDarkMode}
+        className="fixed top-4 right-4 z-50 px-3 py-2 rounded-full bg-white text-gray-800 dark:bg-gray-800 dark:text-white shadow-md transition-all hover:scale-105"
+        aria-label="Toggle dark mode"
+    >
+        {isDarkMode ? "☀️" : "🌙"}
+    </button>
+    
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-6 transition-colors duration-300">
         {token ? (

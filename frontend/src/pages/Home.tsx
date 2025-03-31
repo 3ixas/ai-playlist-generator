@@ -84,24 +84,33 @@ const Home = () => {
                 <ClipLoader color="#36d7b7" size={35} />
             </div>
         ) : profile ? (
-          <>
-            <h1 className="text-2xl font-bold mb-1">Welcome, {profile.display_name} 👋</h1>
-            <p className="mb-6">Email: {profile.email}</p>
+        <>
+            <div className="flex flex-col items-center mb-6">
+                {profile.images && profile.images.length > 0 && (
+                    <img
+                        src={profile.images[0].url}
+                        alt={`${profile.display_name}'s profile`}
+                        className="w-24 h-24 rounded-full border-2 border-green-400 shadow-md mb-3"
+                    />
+                )}
+                <h1 className="text-2xl font-bold">Welcome, {profile.display_name} 👋</h1>
+                <p className="text-sm text-gray-400">{profile.email}</p>
+            </div>
 
             <div className="mb-6">
-              <label htmlFor="timeRange" className="block mb-2 font-semibold">
-                Select Time Range for Top Artists:
-              </label>
-              <select
-                id="timeRange"
-                value={timeRange}
-                onChange={handleTimeRangeChange}
-                className="text-white bg-gray-800 border border-gray-600 p-2 rounded"
-              >
-                <option value="short_term">Last 4 Weeks</option>
-                <option value="medium_term">Last 6 Months</option>
-                <option value="long_term">All Time</option>
-              </select>
+                <label htmlFor="timeRange" className="block mb-2 font-semibold">
+                    Select Time Range for Top Artists:
+                </label>
+                <select
+                    id="timeRange"
+                    value={timeRange}
+                    onChange={handleTimeRangeChange}
+                    className="text-white bg-gray-800 border border-gray-600 p-2 rounded"
+                >
+                    <option value="short_term">Last 4 Weeks</option>
+                    <option value="medium_term">Last 6 Months</option>
+                    <option value="long_term">All Time</option>
+                </select>
             </div>
 
             {isLoadingTopArtists ? (
@@ -177,7 +186,7 @@ const Home = () => {
                 </div>
             )}
 
-          </>
+        </>
         ) : (
           <p className="text-red-400">Failed to load profile.</p>
         )

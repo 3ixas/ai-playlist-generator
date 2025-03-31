@@ -57,7 +57,7 @@ export const getUserPlaylists = async (accessToken: string) => {
 
     const data = await response.json();
     console.log("📁 User Playlists:", data);
-    return data.items; // Returns just the items array
+    return data;
   } catch (error) {
     console.error("Error fetching playlists:", error);
     return null;

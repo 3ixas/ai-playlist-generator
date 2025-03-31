@@ -35,7 +35,7 @@ export const getUserLikedTracks = async (accessToken: string) => {
 
     const data = await response.json();
     console.log("Liked Tracks:", data);
-    return data.items; // Returns just the items array
+    return data;
   } catch (error) {
     console.error("Error fetching liked songs:", error);
     return null;

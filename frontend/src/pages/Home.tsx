@@ -152,14 +152,18 @@ const Home = () => {
                 <div className="mt-6 w-full max-w-md flex justify-center">
                     <ClipLoader color="#36d7b7" size={30} />
                 </div>
-            ) : playlists.length > 0 && (
+            ) : (
                 <div className="mt-6 w-full max-w-md">
                     <h2 className="text-xl font-semibold mb-2">Your Playlists</h2>
-                    <ul className="space-y-1 text-sm">
-                        {playlists.slice(0, 5).map((playlist) => (
-                            <li key={playlist.id}>📂 {playlist.name}</li>
-                        ))}
-                    </ul>
+                    {playlists.length > 0 ? (
+                        <ul className="space-y-1 text-sm">
+                            {playlists.slice(0, 5).map((playlist) => (
+                                <li key={playlist.id}>📂 {playlist.name}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-400">No playlists found.</p>
+                    )}
                 </div>
             )}
 

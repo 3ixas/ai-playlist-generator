@@ -125,16 +125,20 @@ const Home = () => {
                 </div>
             ) : profile ? (
             <>
-                <div className="flex flex-col items-center mb-6">
-                    {profile.images && profile.images.length > 0 && (
+                <div className="flex flex-col items-center mb-8 sm:mb-10">
+                    {profile.images?.[0]?.url && (
                         <img
                             src={profile.images[0].url}
                             alt={`${profile.display_name}'s profile`}
-                            className="w-24 h-24 rounded-full border-2 border-green-400 shadow-md mb-3"
+                            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-green-400 shadow-md mb-4"
                         />
                     )}
-                    <h1 className="text-2xl font-bold transition-colors duration-300">Welcome, {profile.display_name} 👋</h1>
-                    <p className="text-sm italic text-gray-500 dark:text-gray-400 transition-colors duration-300">{profile.email}</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold transition-colors duration-300">
+                        Welcome, {profile.display_name} 👋
+                    </h1>
+                    <p className="text-sm sm:text-base italic text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                        {profile.email}
+                    </p>
                 </div>
 
                 <div className="mb-6">

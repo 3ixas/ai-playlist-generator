@@ -106,7 +106,7 @@ const Home = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-6 transition-colors duration-300">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-4 sm:p-6 lg:p-8 transition-colors duration-300">
             <button
                 onClick={toggleDarkMode}
                 className="fixed top-4 right-4 z-50 px-3 py-2 rounded-full bg-white text-gray-800 dark:bg-gray-800 dark:text-white shadow-md transition-all hover:scale-105"

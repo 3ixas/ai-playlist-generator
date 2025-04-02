@@ -162,19 +162,17 @@ const Home = () => {
                         <ClipLoader color="#36d7b7" size={30} />
                     </div>
                 ) : (
-                    <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
+                    <div className="mt-6 w-full max-w-md sm:max-w-lg lg:max-w-2xl">
+                        <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
                             Your Top Artists ({timeRange.replace("_", " ")})
                         </h2>
                         {topArtists.length > 0 ? (
-                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100 transition-colors duration-300">
+                            <ul className="space-y-2 text-sm sm:text-base text-gray-800 dark:text-gray-100 transition-colors duration-300">
                                 {topArtists.slice(0, 5).map((artist) => (
-                                    <li key={artist.id}>
-                                        🎤 {artist.name}{" "}
+                                    <li key={artist.id} className="flex flex-wrap items-center gap-1">
+                                        🎤 <span className="font-medium">{artist.name}</span>
                                         {artist.genres.length > 0 && (
-                                            <span className="text-gray-400">
-                                                ({artist.genres.slice(0, 2).join(", ")})
-                                            </span>
+                                            <span className="text-gray-400">({artist.genres.slice(0, 2).join(", ")})</span>
                                         )}
                                     </li>
                                 ))}

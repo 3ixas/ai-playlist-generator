@@ -188,16 +188,16 @@ const Home = () => {
                         <ClipLoader color="#36d7b7" size={30} />
                     </div>
                 ) : (
-                    <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
+                    <div className="mt-6 w-full max-w-md sm:max-w-lg lg:max-w-2xl">
+                        <h2 className="text-xl sm:text-2xl font-semibold mb-3 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white transition-colors duration-300 ease-in-out">
                             Your Liked Tracks
                         </h2>
                         {likedTracks.length > 0 ? (
-                            <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100 transition-colors duration-300">
+                            <ul className="space-y-2 text-sm sm:text-base text-gray-800 dark:text-gray-100 transition-colors duration-300">
                                 {likedTracks.slice(0, 5).map((item) => (
-                                    <li key={item.track.id}>
-                                        🎶 {item.track.name} —{" "}
-                                        {item.track.artists.map((a: any) => a.name).join(", ")}
+                                    <li key={item.track.id} className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                                        🎶 <span className="font-medium">{item.track.name}</span>
+                                        <span className="text-gray-500 dark:text-gray-400">— {item.track.artists.map((a: any) => a.name).join(", ")}</span>
                                     </li>
                                 ))}
                             </ul>

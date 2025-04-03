@@ -159,6 +159,24 @@ const Home = () => {
                     </select>
                 </div>
 
+                <div className="mb-6 w-full max-w-md">
+                    <label htmlFor="mood" className="block mb-2 font-semibold text-gray-800 dark:text-gray-200">
+                        Select Mood:
+                    </label>
+                    <select
+                        id="mood"
+                        value={mood}
+                        onChange={(e) => setMood(e.target.value)}
+                        className="bg-white text-gray-900 border border-gray-400 dark:bg-gray-800 dark:text-white dark:border-gray-600 p-2 rounded w-full transition-colors duration-300"
+                    >
+                        <option value="">-- Choose a Mood --</option>
+                        <option value="happy">Happy</option>
+                        <option value="sad">Sad</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="calm">Calm</option>
+                    </select>
+                </div>
+
                 {isLoadingTopArtists ? (
                     <div className="mt-6 w-full max-w-md flex justify-center">
                         <ClipLoader color="#36d7b7" size={30} />

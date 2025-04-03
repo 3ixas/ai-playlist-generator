@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
 import { ClipLoader } from "react-spinners";
+import { getRecommendations } from "../utils/spotify";
 import {
   getUserProfile,
   getUserLikedTracks,

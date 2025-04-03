@@ -113,6 +113,8 @@ export const getRecommendations = async (
       seed_tracks: seed_tracks.join(","),
     });
 
+    console.log("Fetching recommendations with:", params.toString());
+
     const res = await fetch(`https://api.spotify.com/v1/recommendations?${params.toString()}`, {
       headers: {
         Authorization: `Bearer ${token}`,

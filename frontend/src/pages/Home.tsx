@@ -108,6 +108,18 @@ const Home = () => {
         setTimeRange(e.target.value as "short_term" | "medium_term" | "long_term");
     };
 
+    const handleGeneratePlaylist = () => {
+        // Placeholder logic — real Spotify recommendation logic coming later
+        const placeholderTracks = [
+            { id: "1", name: "Track 1", artist: "Artist A" },
+            { id: "2", name: "Track 2", artist: "Artist B" },
+            { id: "3", name: "Track 3", artist: "Artist C" },
+        ];
+
+        setGeneratedTracks(placeholderTracks);
+    };
+
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-4 sm:p-6 lg:p-8 transition-colors duration-300">
             <button
@@ -205,7 +217,6 @@ const Home = () => {
                         Generate Playlist
                     </button>
                 </div>
-
 
                 {isLoadingTopArtists ? (
                     <div className="mt-6 w-full max-w-md flex justify-center">

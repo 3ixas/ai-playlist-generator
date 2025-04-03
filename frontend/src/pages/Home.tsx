@@ -196,6 +196,17 @@ const Home = () => {
                     </select>
                 </div>
 
+                <div className="mb-6 w-full max-w-md text-center">
+                    <button
+                        onClick={handleGeneratePlaylist}
+                        disabled={!mood || !activity}
+                        className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold transition-opacity duration-300 disabled:opacity-50 hover:bg-indigo-700"
+                    >
+                        Generate Playlist
+                    </button>
+                </div>
+
+
                 {isLoadingTopArtists ? (
                     <div className="mt-6 w-full max-w-md flex justify-center">
                         <ClipLoader color="#36d7b7" size={30} />

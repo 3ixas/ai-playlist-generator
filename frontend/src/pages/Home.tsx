@@ -21,6 +21,8 @@ const Home = () => {
     const [isLoadingLikedTracks, setIsLoadingLikedTracks] = useState(true);
     const [isLoadingPlaylists, setIsLoadingPlaylists] = useState(true);
     const [isLoadingTopArtists, setIsLoadingTopArtists] = useState(true);
+    const [mood, setMood] = useState<string>("");
+    const [activity, setActivity] = useState<string>("");
     const [isDarkMode, setIsDarkMode] = useState(false);
     
     useEffect(() => {
@@ -229,7 +231,7 @@ const Home = () => {
                         )}
                     </div>
                 )}
-                
+
             </>
             ) : (
             <p className="text-red-400">Failed to load profile.</p>

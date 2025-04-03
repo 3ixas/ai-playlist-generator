@@ -116,6 +116,11 @@ const Home = () => {
         const seedTracks = [likedTracks[0].track.id];
         const seedGenres = ["pop"]; // hardcoded for now
 
+        console.log("Using Seeds:");
+        console.log("Artists:", seedArtists);
+        console.log("Tracks:", seedTracks);
+        console.log("Genres:", seedGenres);
+
         const recommendations = await getRecommendations(token, seedArtists, seedGenres, seedTracks);
         setGeneratedTracks(recommendations);
     };

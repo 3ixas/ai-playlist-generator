@@ -98,3 +98,33 @@ export const getUserTopArtists = async (
     return null;
   }
 };
+
+export const getRecommendations = async (
+  token: string,
+  seed_artists: string[],
+  seed_genres: string[],
+  seed_tracks: string[]
+) => {
+  try {
+    const params = new URLSearchParams({
+      limit: "10",
+      seed_artists: seed_artists.join(","),
+      seed_genres: seed_genres.join(","),
+      seed_tracks: seed_tracks.join(","),
+    });
+
+    const res = await fetch(`https://api.spotify.com/v1/recommendations?${params}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch recommendations");
+
+    const data = await res.json();
+    return data.tracks;
+  } catch (err) {
+    console.error("Error fetching recommendations:", err);
+    return [];
+  }
+};

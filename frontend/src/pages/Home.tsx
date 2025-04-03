@@ -109,17 +109,16 @@ const Home = () => {
         setTimeRange(e.target.value as "short_term" | "medium_term" | "long_term");
     };
 
-    const handleGeneratePlaylist = () => {
-        // Placeholder logic — real Spotify recommendation logic coming later
-        const placeholderTracks = [
-            { id: "1", name: "Track 1", artist: "Artist A" },
-            { id: "2", name: "Track 2", artist: "Artist B" },
-            { id: "3", name: "Track 3", artist: "Artist C" },
-        ];
+    const handleGeneratePlaylist = async () => {
+        if (!token || topArtists.length === 0 || likedTracks.length === 0) return;
 
-        setGeneratedTracks(placeholderTracks);
+        const seedArtists = [topArtists[0].id];
+        const seedTracks = [likedTracks[0].track.id];
+        const seedGenres = ["pop"]; // hardcoded for now
+
+        const recommendations = await getRecommendations(token, seedArtists, seedGenres, seedTracks);
+        setGeneratedTracks(recommendations);
     };
-
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-4 sm:p-6 lg:p-8 transition-colors duration-300">

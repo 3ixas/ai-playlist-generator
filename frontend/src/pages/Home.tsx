@@ -23,6 +23,7 @@ const Home = () => {
     const [isLoadingTopArtists, setIsLoadingTopArtists] = useState(true);
     const [mood, setMood] = useState<string>("");
     const [activity, setActivity] = useState<string>("");
+    const [generatedTracks, setGeneratedTracks] = useState<any[]>([]);
     const [isDarkMode, setIsDarkMode] = useState(false);
     
     useEffect(() => {

@@ -136,3 +136,21 @@ export const getRecommendations = async (
     return [];
   }
 };
+
+export const getAvailableGenres = async (token: string): Promise<string[]> => {
+  try {
+    const res = await fetch("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch available genres");
+
+    const data = await res.json();
+    return data.genres;
+  } catch (err) {
+    console.error("Error fetching available genres:", err);
+    return [];
+  }
+};

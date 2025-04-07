@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { getSpotifyAuthURL } from "../utils/spotifyAuth";
 import { getStoredAccessToken } from "../utils/tokenHandler";
 import { ClipLoader } from "react-spinners";
-import { getRecommendations } from "../utils/spotify";
 import {
   getUserProfile,
   getUserLikedTracks,
   getUserPlaylists,
   getUserTopArtists,
+  getAvailableGenres,
+  getRecommendations
 } from "../utils/spotify";
 
 const Home = () => {
@@ -112,9 +113,14 @@ const Home = () => {
     const handleGeneratePlaylist = async () => {
         if (!token || topArtists.length === 0 || likedTracks.length === 0) return;
 
+        // fetch valid Spotify genres dynamically
+        const availableGenres = await getAvailableGenres(token);
+
+        // Use "pop" if available, or fallback to first genre in the list
+        const seedGenres = [availableGenres.includes("pop") ? "pop" : availableGenres[0]];
+
         const seedArtists = [topArtists[0].id];
         const seedTracks = [likedTracks[0].track.id];
-        const seedGenres: string[] = []; // empty for now
 
         console.log("Using Seeds:");
         console.log("Artists:", seedArtists);

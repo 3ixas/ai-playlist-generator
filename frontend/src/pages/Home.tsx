@@ -114,7 +114,7 @@ const Home = () => {
 
         const seedArtists = [topArtists[0].id];
         const seedTracks = [likedTracks[0].track.id];
-        const seedGenres = ["pop"]; // hardcoded for now
+        const seedGenres: string[] = []; // empty for now
 
         console.log("Using Seeds:");
         console.log("Artists:", seedArtists);

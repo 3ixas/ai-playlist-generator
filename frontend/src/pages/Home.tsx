@@ -326,21 +326,6 @@ const Home = () => {
                         )}
                     </div>
                 )}
-
-                {generatedTracks.length > 0 && (
-                    <div className="mt-6 w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-2 border-b border-gray-300 dark:border-gray-700 pb-1 text-gray-800 dark:text-white">
-                            Your AI-Generated Playlist
-                        </h2>
-                        <ul className="space-y-1 text-sm text-gray-800 dark:text-gray-100">
-                            {generatedTracks.map((track) => (
-                                <li key={track.id}>
-                                    🎵 {track.name} — {track.artist}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
             </>
             ) : (
             <p className="text-red-400">Failed to load profile.</p>

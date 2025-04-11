@@ -103,36 +103,30 @@ export const getRecommendations = async (
   token: string,
   seed_artists: string[],
   seed_genres: string[],
-  seed_tracks: string[]
+  seed_tracks: string[],
+  market: string = "GB" // fallback default
 ) => {
+  const params = new URLSearchParams({
+    limit: "10",
+    market,
+  });
+
+  if (seed_artists.length > 0) params.append("seed_artists", seed_artists.join(","));
+  if (seed_genres.length > 0) params.append("seed_genres", seed_genres.join(","));
+  if (seed_tracks.length > 0) params.append("seed_tracks", seed_tracks.join(","));
+
   try {
-    const seedParams: Record<string, string> = {
-      limit: "10",
-    };
-
-    if (seed_artists.length > 0) seedParams.seed_artists = seed_artists.join(",");
-    if (seed_genres.length > 0) seedParams.seed_genres = seed_genres.join(",");
-    if (seed_tracks.length > 0) seedParams.seed_tracks = seed_tracks.join(",");
-
-    const params = new URLSearchParams(seedParams);
-
-    console.log("Requesting recommendations with:", params.toString());
-
     const res = await fetch(`https://api.spotify.com/v1/recommendations?${params.toString()}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (!res.ok) {
-      const errorText = await res.text(); // helpful for 404
-      throw new Error(`Failed to fetch recommendations: ${res.status} ${errorText}`);
-    }
-
+    if (!res.ok) throw new Error(`Failed to fetch recommendations: ${res.status}`);
     const data = await res.json();
     return data.tracks;
   } catch (err) {
-    console.error("❌ Error fetching recommendations:", err);
+    console.error("Error fetching recommendations:", err);
     return [];
   }
 };

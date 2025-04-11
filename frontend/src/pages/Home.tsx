@@ -111,11 +111,12 @@ const Home = () => {
     };
 
     const handleGeneratePlaylist = async () => {
-        if (!token || topArtists.length === 0 || likedTracks.length === 0) return;
+        if (!token || topArtists.length === 0 || likedTracks.length === 0 || !profile) return;
 
         const artistId = topArtists[0]?.id;
         const trackId = likedTracks[0]?.track?.id;
         const fallbackGenre = "pop";
+        const userMarket = profile.country || "GB";
 
         const strategies = [
             { artists: [artistId], tracks: [trackId], genres: [fallbackGenre] },
@@ -128,17 +129,24 @@ const Home = () => {
 
         for (const strategy of strategies) {
             console.log("Trying with seeds:", strategy);
-            recommendations = await getRecommendations(token, strategy.artists, strategy.genres, strategy.tracks);
+            recommendations = await getRecommendations(
+                token,
+                strategy.artists,
+                strategy.genres,
+                strategy.tracks,
+                userMarket
+            );
             if (recommendations.length > 0) break;
         }
 
         if (recommendations.length === 0) {
-            console.error("❌ All recommendation strategies failed.");
+            console.error("All recommendation strategies failed.");
         } else {
-            console.log("✅ Final recommendations:", recommendations);
+            console.log("Final recommendations:", recommendations);
             setGeneratedTracks(recommendations);
         }
     };
+
 
 
     return (

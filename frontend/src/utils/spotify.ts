@@ -108,19 +108,24 @@ export const getRecommendations = async (
 ): Promise<any[]> => {
   const baseUrl = "https://api.spotify.com/v1/recommendations";
 
+  // Spotify requires at least one seed, and up to 5 total across all types
+  if (!seed_artists.length && !seed_genres.length && !seed_tracks.length) {
+    throw new Error("At least one seed (artist, genre, or track) must be provided.");
+  }
+
   const params: Record<string, string> = {
     limit: "10",
-    market: market,
+    market,
   };
 
-  if (seed_artists.length) params["seed_artists"] = seed_artists.join(",");
-  if (seed_genres.length) params["seed_genres"] = seed_genres.join(",");
-  if (seed_tracks.length) params["seed_tracks"] = seed_tracks.join(",");
+  if (seed_artists.length) params.seed_artists = seed_artists.join(",");
+  if (seed_genres.length) params.seed_genres = seed_genres.join(",");
+  if (seed_tracks.length) params.seed_tracks = seed_tracks.join(",");
 
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${baseUrl}?${queryString}`;
+  const query = new URLSearchParams(params).toString();
+  const url = `${baseUrl}?${query}`;
 
-  console.log("Final recommendation request:", url);
+  console.log("Fetching recommendations from:", url);
 
   const response = await fetch(url, {
     headers: {
@@ -129,8 +134,9 @@ export const getRecommendations = async (
   });
 
   if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Failed to fetch recommendations (${response.status}): ${text}`);
+    const errorText = await response.text();
+    console.error("Spotify API response error:", errorText);
+    throw new Error(`Spotify API error (${response.status}): ${errorText}`);
   }
 
   const data = await response.json();

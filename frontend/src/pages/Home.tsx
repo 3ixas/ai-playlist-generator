@@ -111,34 +111,31 @@ const Home = () => {
     };
 
 const handleGeneratePlaylist = async () => {
-    if (!token) return;
+    if (!token || !profile) {
+        console.error("Missing token or profile.");
+        return;
+    }
+
+    const artistId = topArtists?.[0]?.id || "4NHQUGzhtTLFvgF5SZesLK"; // fallback: Tove Lo
+    const trackId = likedTracks?.[0]?.track?.id || "0c6xIDDpzE81m2q797ordA"; // fallback: Habits
+    const genre = "pop"; // must be a valid genre (use getAvailableGenres if dynamic later)
+    const market = profile.country || "GB";
 
     try {
-        const hardcodedArtistId = "4NHQUGzhtTLFvgF5SZesLK"; // Example: Tove Lo
-        const hardcodedTrackId = "0c6xIDDpzE81m2q797ordA"; // Example: Habits
-        const genre = "pop";
-        const market = "GB";
-
-        console.log("Using hardcoded seed values...");
-
         const recommendations = await getRecommendations(
-        token,
-        [hardcodedArtistId],
-        [genre],
-        [hardcodedTrackId],
-        market
+            token,
+            [artistId],
+            [genre],
+            [trackId],
+            market
         );
 
-        console.log("✅ Recommendations received:", recommendations);
+        console.log("✅ Playlist generated:", recommendations);
         setGeneratedTracks(recommendations);
-    } catch (err) {
-        console.error("Still failing with hardcoded values:", err);
+    } catch (error) {
+        console.error("❌ Playlist generation failed:", error);
     }
 };
-
-
-
-
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-4 sm:p-6 lg:p-8 transition-colors duration-300">

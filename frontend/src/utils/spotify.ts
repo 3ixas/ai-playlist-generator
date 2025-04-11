@@ -91,7 +91,7 @@ export const getUserTopArtists = async (
     }
 
     const data = await response.json();
-    console.log("🎨 Top Artists:", data);
+    console.log("Top Artists:", data);
     return data;
   } catch (error) {
     console.error("Error fetching top artists:", error);
@@ -101,34 +101,40 @@ export const getUserTopArtists = async (
 
 export const getRecommendations = async (
   token: string,
-  seed_artists: string[],
-  seed_genres: string[],
-  seed_tracks: string[],
-  market: string = "GB" // fallback default
-) => {
-  const params = new URLSearchParams({
+  seed_artists: string[] = [],
+  seed_genres: string[] = [],
+  seed_tracks: string[] = [],
+  market: string = "GB"
+): Promise<any[]> => {
+  const baseUrl = "https://api.spotify.com/v1/recommendations";
+
+  const params: Record<string, string> = {
     limit: "10",
-    market,
+    market: market,
+  };
+
+  if (seed_artists.length) params["seed_artists"] = seed_artists.join(",");
+  if (seed_genres.length) params["seed_genres"] = seed_genres.join(",");
+  if (seed_tracks.length) params["seed_tracks"] = seed_tracks.join(",");
+
+  const queryString = new URLSearchParams(params).toString();
+  const url = `${baseUrl}?${queryString}`;
+
+  console.log("Final recommendation request:", url);
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
-  if (seed_artists.length > 0) params.append("seed_artists", seed_artists.join(","));
-  if (seed_genres.length > 0) params.append("seed_genres", seed_genres.join(","));
-  if (seed_tracks.length > 0) params.append("seed_tracks", seed_tracks.join(","));
-
-  try {
-    const res = await fetch(`https://api.spotify.com/v1/recommendations?${params.toString()}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (!res.ok) throw new Error(`Failed to fetch recommendations: ${res.status}`);
-    const data = await res.json();
-    return data.tracks;
-  } catch (err) {
-    console.error("Error fetching recommendations:", err);
-    return [];
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Failed to fetch recommendations (${response.status}): ${text}`);
   }
+
+  const data = await response.json();
+  return data.tracks || [];
 };
 
 export const getAvailableGenres = async (token: string): Promise<string[]> => {

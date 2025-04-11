@@ -110,52 +110,32 @@ const Home = () => {
         setTimeRange(e.target.value as "short_term" | "medium_term" | "long_term");
     };
 
-    const handleGeneratePlaylist = async () => {
-        if (!token || !profile) return;
+const handleGeneratePlaylist = async () => {
+    if (!token) return;
 
-        const market = profile.country || "GB";
+    try {
+        const hardcodedArtistId = "4NHQUGzhtTLFvgF5SZesLK"; // Example: Tove Lo
+        const hardcodedTrackId = "0c6xIDDpzE81m2q797ordA"; // Example: Habits
+        const genre = "pop";
+        const market = "GB";
 
-        const validArtist = topArtists.find((a) => a.genres.length > 0);
-        const artistId = validArtist?.id;
+        console.log("Using hardcoded seed values...");
 
-        const validTrack = likedTracks.find((t) => t.track?.id && t.track?.is_playable !== false);
-        const trackId = validTrack?.track?.id;
+        const recommendations = await getRecommendations(
+        token,
+        [hardcodedArtistId],
+        [genre],
+        [hardcodedTrackId],
+        market
+        );
 
-        const fallbackGenre = "pop";
+        console.log("✅ Recommendations received:", recommendations);
+        setGeneratedTracks(recommendations);
+    } catch (err) {
+        console.error("Still failing with hardcoded values:", err);
+    }
+};
 
-        console.log(" Valid artist ID:", artistId);
-        console.log(" Valid track ID:", trackId);
-
-        const strategies = [
-            { artists: [artistId], tracks: [trackId], genres: [fallbackGenre] },
-            { artists: [artistId], tracks: [trackId], genres: [] },
-            { artists: [artistId], tracks: [], genres: [] },
-            { artists: [], tracks: [], genres: [fallbackGenre] },
-        ];
-
-        let recommendations = [];
-
-        for (const strategy of strategies) {
-            const { artists, tracks, genres } = strategy;
-            console.log("Trying with seeds:", strategy);
-
-            if (artists.length + tracks.length + genres.length === 0) continue;
-
-            try {
-                recommendations = await getRecommendations(token, artists, genres, tracks, market);
-                if (recommendations.length > 0) break;
-            } catch (err) {
-                console.error("Error during recommendation strategy:", err);
-            }
-        }
-
-        if (recommendations.length === 0) {
-            console.error("All recommendation strategies failed.");
-        } else {
-            console.log("Final recommendations:", recommendations);
-            setGeneratedTracks(recommendations);
-        }
-    };
 
 
 

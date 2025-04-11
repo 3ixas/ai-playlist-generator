@@ -113,20 +113,33 @@ const Home = () => {
     const handleGeneratePlaylist = async () => {
         if (!token || topArtists.length === 0 || likedTracks.length === 0) return;
 
-        const availableGenres = await getAvailableGenres(token);
-        const seedGenres = availableGenres.length > 0 ? [availableGenres[0]] : ["pop"];
+        const artistId = topArtists[0]?.id;
+        const trackId = likedTracks[0]?.track?.id;
+        const fallbackGenre = "pop";
 
-        const seedArtists = [topArtists[0].id];
-        const seedTracks = [likedTracks[0].track.id];
+        const strategies = [
+            { artists: [artistId], tracks: [trackId], genres: [fallbackGenre] },
+            { artists: [artistId], tracks: [trackId], genres: [] },
+            { artists: [artistId], tracks: [], genres: [] },
+            { artists: [], tracks: [], genres: [fallbackGenre] },
+        ];
 
-        console.log("Using Seeds:");
-        console.log("Artists:", seedArtists);
-        console.log("Tracks:", seedTracks);
-        console.log("Genres:", seedGenres);
+        let recommendations = [];
 
-        const recommendations = await getRecommendations(token, seedArtists, seedGenres, seedTracks);
-        setGeneratedTracks(recommendations);
+        for (const strategy of strategies) {
+            console.log("Trying with seeds:", strategy);
+            recommendations = await getRecommendations(token, strategy.artists, strategy.genres, strategy.tracks);
+            if (recommendations.length > 0) break;
+        }
+
+        if (recommendations.length === 0) {
+            console.error("❌ All recommendation strategies failed.");
+        } else {
+            console.log("✅ Final recommendations:", recommendations);
+            setGeneratedTracks(recommendations);
+        }
     };
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black dark:bg-gray-900 dark:text-white p-4 sm:p-6 lg:p-8 transition-colors duration-300">
